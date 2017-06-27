@@ -1,0 +1,47 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<PageContent>
+
+@using DotSee.UmbracoExtensions;
+
+@{
+    Layout = "siteTemplate.cshtml";
+    PageContent currPage = Model.Content;
+}
+
+@Html.Partial("PageBackgroundImage", currPage)
+@{
+
+    if (currPage.Descendant(FolderSections.ModelTypeAlias) != null)
+    {
+        var items = currPage.Descendant(FolderSections.ModelTypeAlias).Children();
+        foreach (IPublishedContent item in items)
+        {
+            //Pass a value to make specific partials be pushed down a bit if no background image is set and they are first on the list.
+            bool pushDown = string.IsNullOrEmpty(currPage.PageBackgroundImage) && item.Equals(items.First());
+
+            bool useHorizontalRule = (item.Equals(items.Last())) ? false : true;
+
+            @Html.Partial("PageSectionRenderer", item, new ViewDataDictionary { { "useHorizontalRule", useHorizontalRule }, { "pushDown", pushDown } })
+
+        }
+    }
+
+}
+
+
+
+
+
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc-ZK9CUiLgCxobyTqamfHBlxtv7j_OjV8RPEciGGm-iqQSjQ/viewform?embedded=true" width="100%" height="2500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+
+
+
+<a data-flickr-embed="true"  href="https://www.flickr.com/photos/148604149@N03/albums/72157681969055922" title="UnitedCharities"><img src="https://c1.staticflickr.com/5/4240/34409004574_062fbc39c5_z.jpg" width="640" height="480" alt="UnitedCharities"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+
+
+
+
+
+@* the fun starts here *@
+
+
+

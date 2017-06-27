@@ -1,0 +1,23 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Umbraco.Web.PublishedContentModels.MediaGallery2>
+@using DotSee.UmbracoExtensions
+
+  <div class="container">
+        aaaaaaaaaaaaaaaaaaaaaaa
+    </div>
+
+
+@{
+    var typedMediaPickerSingle = Model.Content.GetPropertyValue<IPublishedContent>("imageFolder");
+    }
+    <div>Test</div>
+    @if (typedMediaPickerSingle.Children.Any())
+    {
+    <div>Test2</div>
+        <ul>
+            @* for each item in children of the selected media folder *@
+            @foreach (var mediaItem in typedMediaPickerSingle.Children)
+            {
+                <li><img src="@mediaItem.umbracoFile" alt="@mediaItem.Name" /></li>
+            }
+        </ul>
+    }

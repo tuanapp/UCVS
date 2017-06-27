@@ -1,0 +1,76 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<PageContent>
+
+@using DotSee.UmbracoExtensions;
+
+@{
+    Layout = "siteTemplate.cshtml";
+    PageContent currPage = Model.Content;
+}
+
+@Html.Partial("PageBackgroundImage", currPage)
+@{
+
+    if (currPage.Descendant(FolderSections.ModelTypeAlias) != null)
+    {
+        var items = currPage.Descendant(FolderSections.ModelTypeAlias).Children();
+        foreach (IPublishedContent item in items)
+        {
+            //Pass a value to make specific partials be pushed down a bit if no background image is set and they are first on the list.
+            bool pushDown = string.IsNullOrEmpty(currPage.PageBackgroundImage) && item.Equals(items.First());
+
+            bool useHorizontalRule = (item.Equals(items.Last())) ? false : true;
+
+            @Html.Partial("PageSectionRenderer", item, new ViewDataDictionary { { "useHorizontalRule", useHorizontalRule }, { "pushDown", pushDown } })
+
+        }
+    }
+
+}
+
+
+</br></br>
+</br></br>
+<div style="margin:auto;width:50%;padding-top:20px;">
+    <div class="fb-page" data-href="https://www.facebook.com/unitedcharities.lk" data-tabs="timeline,events,messages" data-width="500" data-height="2500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/unitedcharities.lk" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/unitedcharities.lk">UnitedCharities</a></blockquote></div>
+</div>
+
+
+
+
+@Html.Partial("Khalib/kGallery")
+
+
+
+@* the fun starts here *@
+
+@{
+/*
+     @* Get the media folder as a dynamic node 
+    var mediaFolder = Umbraco.Media(Model.MacroParameters["mediaId"]);
+    *@
+    @*  var mediaFolder =  Umbraco.Media("umb://media/7a471271a36c4fd39ca95239aad4e134");*@
+    @{
+        var mediaFolder =  Umbraco.Media(1352);
+        //var  folderId = Model.GetPropertyValue("umb://media/7a471271a36c4fd39ca95239aad4e134");
+        //@folderId.Children.Any()
+    }
+ 
+    @if (mediaFolder.Children.Any())
+    {
+        <div id="nanogallery2" data-nanogallery2>
+
+        
+            @* for each item in children of the selected media folder *@
+            @foreach (var mediaItem in mediaFolder.Children)
+            {
+            @mediaItem.umbracoFile
+            <a href="@mediaItem.umbracoFile" data-ngThumb="@mediaItem.umbracoFile"></a>
+                
+                @* <li><img src="@mediaItem.umbracoFile" alt="@mediaItem.Name" /></li> *@
+            }
+        </div>
+    }
+*/
+}
+
+

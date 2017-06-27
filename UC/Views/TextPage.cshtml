@@ -1,0 +1,9 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "siteTemplate.cshtml";
+}
+
+<div style="padding-top:100px;">
+
+@CurrentPage.GetGridHtml("content", "fanoe")
+</div>
